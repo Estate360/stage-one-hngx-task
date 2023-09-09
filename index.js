@@ -2,7 +2,7 @@ const express = require("express");
 const moment = require("moment");
 require("dotenv").config();
 const app = express();
-const port = 3000; // You can change the port as needed
+const port = 3000;
 
 app.get("/api", (req, res) => {
   const { slack_name, track } = req.query;
@@ -15,10 +15,9 @@ app.get("/api", (req, res) => {
   }
 
   //current date, UTC time, and day of the week
-  const currentDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss[Z]");
-  const currentDay = moment.utc().format("dddd");
+  const currentDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss[Z]"),
+    currentDay = moment.utc().format("dddd");
 
-  // Construct response JSON
   const response = {
     slack_name,
     current_day: currentDay,
@@ -29,10 +28,9 @@ app.get("/api", (req, res) => {
     status_code: 200,
   };
 
-  res.json(response);
+  res.status(200).json(response);
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
